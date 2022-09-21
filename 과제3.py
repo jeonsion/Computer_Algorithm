@@ -9,22 +9,24 @@ def promissing(h):
         elif( h-i == abs(cols[h]-cols[i])):
             return 0
     return 1    
-        
-        
+                
+                
 def queens(h):
-    if(not promissing):
+    if(not promissing(h)):
         return 0
     if(h==N):
-        for i in range(1, N+1):
+        for i in range(1, 9):
             print("({}, {})".format(i, cols[i]))
         return 1
-    for i in range(1, N+1):
+    
+    for i in range(1, 9):
         cols[h+1] = i
         if(queens(h+1)):
             return 1
+    
     return 0
+  
 
 if(queens(0)==1):
     print("Success\n")
         
-print(cols)
