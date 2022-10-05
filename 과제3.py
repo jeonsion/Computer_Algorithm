@@ -2,7 +2,7 @@ N = 8
 
 cols = [0 for i in range(N+1)]
 
-def promissing(h):
+def promissing(h):                  
     for i in range(1, h):
         if(cols[i] == cols[h]):
             return 0

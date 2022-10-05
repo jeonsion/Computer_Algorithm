@@ -1,4 +1,7 @@
 
+import time
+start = time.time()
+
 MAX_N = 15
 
 weight=[0 for i in range(MAX_N+1)]
@@ -21,8 +24,11 @@ T = int(input())
 for i in range(int(T)):
     
     N = int(input())
+
     weight[1:N+1] = list(map(int, input().split()))
     ##print(weight)
     countTeams(0,0,0,0)
     print(result)
     result = 0    
+
+print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간
