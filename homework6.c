@@ -25,6 +25,7 @@ void selectionsort(int A[], int n){
                 select = j;
         }
         //만약 자리를 바꿀 필요가 없다면 swap하지 않아도 됨.
+        //가장 큰 인덱스를 i 위치와 swap 한 후 고정
         if(select!=i){
             temp = A[i];
             A[i] = A[select];
@@ -61,7 +62,7 @@ void bubblesort(int A[], int n){
 void insertionsort(int A[], int n){
     int i, j, key;
     //인덱스 0 은 이미 정렬된 것으로 본다.
-    for(i = 1; i<n; i++)    {
+    for(i = 1; i<=n; i++)    {
         key = A[i]; //현재 삽입될 숫자인 i 번째 정수를 key 변수로 복사
         
         //현재 정렬된 배열은 i-1까지 이므로, 여기서 부터 역순으로 조사한다.
@@ -80,9 +81,9 @@ int main()  {
     printf("변경 전 : 3, 31, 48, 73, 8, 11, 20, 29, 65, 15 \n");
     
     //사용법 : 주석을 번갈아 제거하면서 사용하세요.
-    selectionsort(input, DATA_SIZE);
+    //selectionsort(input, DATA_SIZE);
     //bubblesort(input, DATA_SIZE);
-    //insertionsort(input, DATA_SIZE);
-    //printsort(input, DATA_SIZE);
+    insertionsort(input, DATA_SIZE);
+    printsort(input, DATA_SIZE);
     return 0;
 }
