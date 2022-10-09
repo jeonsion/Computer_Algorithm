@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define arr_size 5
+#define arr_size 5      //마지막 인덱스 5
 
 
 
