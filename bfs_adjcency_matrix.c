@@ -8,12 +8,15 @@ typedef struct {
     int adjMatrix[MAX_VERTEX_NUM][MAX_VERTEX_NUM];
 }Graph;
 
+//방문 유무를 확인하는 배열
 int visited[MAX_VERTEX_NUM];
 
+//큐의 최대 크기
 #define MAX_QUEUE_SIZE 20
 
-typedef int element;
+typedef int element;       //큐의 원소 자료형을 int로 정의
 
+// 큐 구조체
 typedef struct {
     int front;
     int rear;
@@ -24,35 +27,39 @@ void error(char* message){
     fprintf(stderr, "%s\n", message);
 }
 
+//큐 시작 rear, front 초기화
 void init_queue(QueuType* q){
     q->rear = 0;
     q->front = 0;
 }
 
+//원형 큐의 포화상태 (front가 rear보다 한칸 앞에 위치하면 포화상태이다. )
 int is_full(QueuType* q){
     return (q->front ==(q->rear +1) % MAX_QUEUE_SIZE);
 }
-
+//원형 큐의 공백 상태
 int is_empty(QueuType* q){
     return (q->front == q->rear);   // 비어있으면 1 아니면 0반환
 }
 
+//큐 insert
 void enqueue(QueuType* q, element item){
     if(is_full(q)){
-        error("큐가 포화상탱칩니다.");
+        error("큐가 포화상태입니다.");
         return;
     }
-    q->rear = (q->rear + 1) % MAX_QUEUE_SIZE;
-    q->data[q->rear] = item;
+    q->rear = (q->rear + 1) % MAX_QUEUE_SIZE;   //rear = rear + 1 
+    q->data[q->rear] = item;    //큐 삽입
 }
 
+//큐 pop
 element dequeue(QueuType* q){
     if(is_empty(q)) {
         error("큐가 공백상태입니다.");
         return -1;
     }
-    q->front = (q->front + 1) % MAX_QUEUE_SIZE;
-    return q->data[q->front];
+    q->front = (q->front + 1) % MAX_QUEUE_SIZE; //front = front + 1
+    return q->data[q->front];   //큐 front 값 리턴
 }
 Graph* NewGraph(int vNum){
     Graph* graph = (Graph*)malloc(sizeof(Graph));
@@ -79,28 +86,39 @@ void printGraph(Graph *graph)   {
     }
 }
 
-void BFS_Mat(Graph* g, int s){
+//BFS 너비 우선 탐색
+//출발 노드로부터 가까운 정점을 먼저 방문하고 멀리 떨어져 있는 정점을 나중에 방문하는 순회방법
+void BFS_Mat(Graph* g, int s){  //
+
+    //큐 선언
     QueuType q;
+    //큐 초기화
     init_queue(&q);
 
+    
     for(int i = 1; i<= g->vertexNum; i++)   //visited 배열 초기화
         visited[i] = 0;                     // 0: 방문하지 않음, 1: 방문했음
 
+    // 첫번째 노드 방문
     visited[s] = 1;
+    //방문했으면 출력 후 큐에 넣는다.
     printf("%d ", s);
     enqueue(&q, s);
+    //큐가 비어있지 않다면 반복문 실행
     while(!is_empty(&q)){
+        //큐에 들어있는 노드를 꺼내 그 이웃노드들을 방문하고 큐에 저장할 것이다.
         int u = dequeue(&q);
         for(int v = 1; v<= g->vertexNum; v++){
-            if(g->adjMatrix[u][v] == 1 && visited[v]==0){
-                visited[v] = 1;
-                printf("%d ", v);
-                enqueue(&q, v);
+            if(g->adjMatrix[u][v] == 1 && visited[v]==0){       //인접노드 이면서 방문하지 않은 노드일 때
+                visited[v] = 1; //방문하고
+                printf("%d ", v);   //출력하고
+                enqueue(&q, v); //큐에 집어넣는다
             }
         }
 
     }
 }
+
 
 int main(){
     Graph *g = NewGraph(8);
