@@ -16,12 +16,6 @@ typedef struct
 //구조체 배열 선언
 Fitbit_Daily_Info monthly_info[DAY +1];
 
-//퀵 정렬 이용 Date 오름 차순으로 정렬
-//분할 정복법 사용
-//분할(partition) : 데이터가 저장된 배열을 pivot에 따라 두 부분으로 나눔
-//정복 : 각 부분을 순환적으로 정렬
-//취합은 필요 없음
-
 //j의 원소가 pivot보다 크면 j = j+1, j의 원소가 pivot보다 작으면 i = i+1하고 i와 j의 인덱스 바꾸기 그 다음 j = j+1
 int partition(Fitbit_Daily_Info A[], int p, int r){
     //피봇
@@ -92,7 +86,7 @@ void bubblesort(Fitbit_Daily_Info A[], int p, int r){
     for(int i = p; i<=DAY; i++){
         //가장 큰 값을 r-i에 고정한 다음 다음단계에서는 고정한 자리 앞까지 버블정렬한다.
         for(int j = 1; j<=r-i; j++)  {
-            if(A[j].efficiency>A[j+1].efficiency){
+            if(A[j].date<A[j+1].date){
                 Fitbit_Daily_Info temp = A[j+1];
                 A[j+1] = A[j];
                 A[j] = temp;
@@ -102,38 +96,57 @@ void bubblesort(Fitbit_Daily_Info A[], int p, int r){
 }
 
 
+
+//힙 재구성
 void heapifty(Fitbit_Daily_Info A[], int k, int r){
+    //자식 노드 중 작은 노드으 인덱스를 할당할 변수 smaller 선언
     int smaller = 0;
+    //마지막 노드 : r, 부모노드 : k, 왼쪽 자식(left) : 2*k, 오른쪽 자식(right) : 2*k +1
     int left = 2*k, right = 2*k +1;
 
+    //두명의 자식을 가지고 있을경우 
     if(right <= r){
-        if(A[left].efficiency < A[right].efficiency)
+        //두 자식 노드 중 작은 노드의 인덱스를 smaller에 할당해준다.
+        if(A[left].efficiency <= A[right].efficiency)
             smaller = left;
         else
             smaller = right;
     }
+    //한명의 자식
     else if(left <= r)
         smaller = left;
+    //자식이 없을 때
     else
         return ;
 
+    //자식노드 중 작은 노드가 부모모다 작으면 swap해주기.
     if(A[smaller].efficiency < A[k].efficiency){
         Fitbit_Daily_Info temp = A[k];
         A[k] = A[smaller];
         A[smaller] = temp;
+        //swap한다음 자식노드를 루트로 재귀적으로 구성
         heapifty(A, smaller, r);
 
 
     }
 }
 
+
+//힙만들기
 void buildheap(Fitbit_Daily_Info A[], int p, int r){
+    //마지막 노드의 부모노드 부터 체크한다.
     for(int i = r/2; i>0; i--)
+        //힙 재구성
         heapifty(A, i, r);
 }
 
-void heapsort(Fitbit_Daily_Info A[], int p, int r){
 
+//힙정렬
+//주어진 입력 데이터를 힙으로 만든 다음, 하나씩 힙에서 제거하면서 정렬
+//최악의 경우에도 O(nlogn)
+//A[p...r] -> A[1...30]
+void heapsort(Fitbit_Daily_Info A[], int p, int r){
+    //힙만들기
     buildheap(A, p, r);
     for(int i = r; i>=p; i--){
         Fitbit_Daily_Info temp = A[1];
@@ -160,6 +173,6 @@ int main()  {
     //selectionsort(monthly_info, 1, DAY);
     //bubblesort(monthly_info, 1, DAY);
     heapsort(monthly_info, 1, DAY);
-    printf("<<<힙정렬로 date 오름차순정렬>>>\n");
+    printf("<<<힙정렬로 date 내림차순정렬>>>\n");
     printData();
 } 
