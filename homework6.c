@@ -1,6 +1,6 @@
 //Programming By Sion.J
 #include <stdio.h>
-#define DATA_SIZE 5
+#define DATA_SIZE 10
 
 
 //정렬된 배열을 출력하는 함수
@@ -79,8 +79,8 @@ void insertionsort(int A[], int n){
 
 
 int main()  {
-    int input[] = {7, 9, 4, 8, 6, 3};
-    printf("변경 전 : 7, 9, 4, 8, 6, 3 \n");
+    int input[] = {3, 31, 48, 73, 8, 11, 20, 29, 65, 15};
+    printf("변경 전 : 3, 31, 48, 73, 8, 11, 20, 29, 65, 15 \n");
     for(int i = 1; i<=6; i++){}
     //사용법 : 주석을 번갈아 제거하면서 사용하세요.
     //selectionsort(input, DATA_SIZE);

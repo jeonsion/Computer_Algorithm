@@ -27,7 +27,7 @@ void heapify(int A[], int k, int n){
         int temp = A[k];
         A[k] = A[smaller];
         A[smaller] = temp;
-        //교체를 후 heapify함수를 통해 자식노드를 루트로 재귀적으로 실행 노드와 비교
+        //교체를 후 heapify함수를 통해 자식노드를 루트로 재귀적으로 실행, 노드와 비교
         heapify(A, smaller, n);
     }
 }
@@ -41,6 +41,7 @@ void buildheap(int A[], int n){
 }
 
 void heapsort(int A[], int n){
+    //첫번째 힙부터 만들기
     //힙 만들기 A[0...n-1]
     buildheap(A, n);
     for(int i = n; i>=0; i--){

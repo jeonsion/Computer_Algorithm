@@ -147,8 +147,6 @@ void merge(Fitbit_Daily_Info A[], int p, int q, int r){
     i = p; t=1;
     while(i<=r)
         A[i++]=temp[t++];
-
-
 }
 //분할, 정복
 void mergesort(Fitbit_Daily_Info A[], int p, int r){
