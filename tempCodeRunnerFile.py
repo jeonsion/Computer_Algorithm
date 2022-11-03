@@ -1,0 +1,1 @@
+    A_list = [[] for i in range(N
