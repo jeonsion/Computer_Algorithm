@@ -1,1 +1,1 @@
-    A_list = [[] for i in range(N
+print(i+1, j+1, flow_list[i][j])
