@@ -75,7 +75,7 @@ Kruskal()
 #총합 계산
 cost = 0
 for i in result:
-    print("{},{}({})".format(i[0],i[1],i[2]))
+    #print("{},{}({})".format(i[0],i[1],i[2]))
     cost +=i[2]
 
-print("Total Cost : ", cost)
+print(cost)
